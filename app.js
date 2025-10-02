@@ -79,18 +79,6 @@ function mostrarPreview() {
   });
 }
 
-// Actualizar el input con los archivos del array
-function actualizarInput() {
-  const dataTransfer = new DataTransfer();
-  archivosSeleccionados.forEach(file => dataTransfer.items.add(file));
-  inputImagenes.files = dataTransfer.files;
-}
-
-
-
-
-
-
 
 // === TIPO DE AVENTURA cuando es "Otro" mostrar input ===
 const tipoSelect = document.getElementById("tipo");
@@ -365,75 +353,83 @@ document.getElementById("modalExito").addEventListener("click", (e) => {
 
 
 
-
-
-
-
-
-// === ENVIAR DATOS A GOOGLE SHEETS CON IMÁGENES ===
+// === ENVIAR DATOS SOLO A GOOGLE SHEETS CON IMÁGENES ===
 async function enviarDatos() {
-  const url = "https://script.google.com/macros/s/AKfycbwvpQLFfCzYYrUUTJQdZhxUHHDjt0HF4mNCHnT1k6ig_FSze71egP2BEWFRkhxJapJB/exec"; // tu Web App
+  const url = "https://script.google.com/macros/s/AKfycbw_e3w52b6UM3ZQzZ1VMv9gb6xSMo9KIqWHnh76-uwRgN1QiYCRUCWfkwxSMAC9GyfQ/exec"; // tu URL del Web App
 
-  const formData = {
+  // Función que convierte un File a base64 junto con su nombre y tipo
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        // reader.result = data:[<mediatype>][;base64],<data>
+        // Extraemos solo la parte base64
+        const result = reader.result;
+        const base64Index = result.indexOf(',') + 1;
+        const base64 = result.slice(base64Index);
+        resolve({ name: file.name, type: file.type, base64 });
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Si hay imágenes seleccionadas, convertimos a base64; si no, enviamos solo nombres vacíos
+  let imagenesPayload = [];
+  if (archivosSeleccionados.length > 0) {
+    // Convertir todos en paralelo
+    imagenesPayload = await Promise.all(archivosSeleccionados.map(f => fileToBase64(f)));
+  }
+
+  const baseData = {
     ciudad: document.getElementById("ciudad").value,
-    tipo: (document.getElementById("tipo").value === "Otro" 
-       ? "Otro (" + document.getElementById("otroTipo").value + ")" 
-       : document.getElementById("tipo").value),
+    tipo: (document.getElementById("tipo").value === "Otro"
+           ? "Otro (" + document.getElementById("otroTipo").value + ")"
+           : document.getElementById("tipo").value),
+    otroTipo: document.getElementById("otroTipo").value || "",
     nombreAventura: document.getElementById("nombreAventura").value,
     nombreAventuraIngles: document.getElementById("nombreAventuraIngles").value,
     precioBase: document.getElementById("precioBase").value,
     porcentaje: document.getElementById("porcentaje").value,
     precioVenta: document.getElementById("precioVenta").value,
-    ganancia: document.getElementById("gananciaJexpedition").value,
+    gananciaJexpedition: document.getElementById("gananciaJexpedition").value,
     descripcion: document.getElementById("descripcion").value,
     incluye: document.getElementById("incluye").value,
     destacados: document.getElementById("destacados").value,
     restringidos: document.getElementById("restringidos").value,
     agencia: document.getElementById("agencia").value,
+    tipoIdentificacion: document.getElementById("tipoIdentificacion").value,
+    numeroIdentificacion: document.getElementById("numeroIdentificacion").value,
     telefono: document.getElementById("telefonoCompleto").value,
-    imagenes: []
+    imagenes: imagenesPayload // ahora puede incluir base64 y metadata
   };
-
-  // Convertir imágenes a base64
-  for (let file of archivosSeleccionados) {
-    try {
-      const base64 = await toBase64(file);
-      formData.imagenes.push({
-        name: file.name,
-        type: file.type,
-        data: base64
-      });
-    } catch (err) {
-      console.error("Error convirtiendo imagen a base64:", file.name, err);
-    }
-  }
 
   try {
     const res = await fetch(url, {
       method: "POST",
-      body: JSON.stringify(formData),
+      body: JSON.stringify(baseData),
       headers: { "Content-Type": "application/json" }
     });
 
     const result = await res.json();
-    if (result.success) {
-      alert("✅ Registrado correctamente. Carpeta: " + result.link);
+
+    if (result.status === "success") {
+      alert("✅ Datos enviados correctamente a Google Sheets");
     } else {
-      alert("❌ Error: " + result.error);
+      throw new Error(result.message || 'Error desconocido');
     }
 
   } catch (err) {
-    console.error("Error enviando los datos:", err);
-    alert("❌ No se pudo enviar. ¿Estás en localhost? Recuerda abrir el HTML desde file:// o Chrome sin seguridad temporal.");
+    console.error("Error enviando datos:", err);
+    alert("❌ Error enviando datos: " + (err.message || err));
   }
 }
 
-// Convierte File a base64
-function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result.split(",")[1]);
-    reader.onerror = error => reject(error);
-  });
-}
+// Conectar con el submit del formulario
+document.getElementById("aventuraForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  actualizarPrecios(); // actualizar precio y ganancia antes de enviar
+enviarDatos();
+});
+
+

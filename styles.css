@@ -26,6 +26,20 @@ body {
 
 
 
+.numero-paso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f97316; /* Naranja */
+  color: white;
+  font-weight: 700;
+  font-size: 1rem; /* <-- tamaño uniforme */
+  font-family: inherit; /* misma fuente del resto */
+  margin-right: 8px;
+}
 
 
 
@@ -188,6 +202,7 @@ body {
 
 .iti__selected-flag {
   padding: 0;
+  border-radius: 8px 0 0 8px;
 }
 
 .iti__selected-dial-code {

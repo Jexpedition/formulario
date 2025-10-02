@@ -107,12 +107,20 @@
   <label for="tipo">🎭 Tipo de experiencia</label>
   <select id="tipo" name="tipo" class="input-base" required>
     <option value="">Selecciona una opción</option>
-    <option value="Tour">Tour</option>
-    <option value="Pasadía">Pasadía</option>
-    <option value="Viaje">Viaje</option>
-    <option value="Vida nocturna">Vida nocturna</option>
+    <option value="Tour">☀️ Tour</option>
+    <option value="Pasadía">🌅 Pasadía</option>
+    <option value="Viaje">✈️ Viaje</option>
+    <option value="Vida nocturna">🌙 Vida nocturna</option>
+    <option value="Otro">➕ Otro</option>
   </select>
+
+  <!-- Input oculto que aparece solo si seleccionan "Otro" -->
+  <div id="otroTipoContainer" class="mt-3 hidden">
+    <label for="otroTipo">📝 Especifica tu tipo de experiencia</label>
+    <input type="text" id="otroTipo" name="otroTipo" placeholder="Ej: Caminata ecológica" class="input-base">
+  </div>
 </section>
+
 
 <section class="seccion-formulario">
   <h2 class="titulo-seccion"><span class="numero-paso">2</span> Nombre de la Aventura</h2>
@@ -126,10 +134,10 @@
 
 <!-- Sección 3: Imágenes de la Aventura -->
 <section class="bg-gray-50 rounded-2xl p-6 border border-gray-200">
-  <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-    <span class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
-    Imágenes de la Aventura
-  </h2>
+<h2 class="titulo-seccion">
+  <span class="numero-paso">3</span> Imágenes de la Aventura
+</h2>
+
 
   <!-- Área de subida -->
   <div class="file-upload-area rounded-2xl p-10 text-center cursor-pointer border-2 border-dashed border-orange-300 hover:border-orange-500 transition"
@@ -156,8 +164,18 @@
 <section class="seccion-formulario seccion-precios">
   <h2 class="titulo-seccion"><span class="numero-paso">4</span> Configuración de Precios</h2>
 
-  <label for="precioBase">💰 Precio Base (COP)</label>
-  <input type="number" id="precioBase" name="precio" placeholder="Ej: 100000" class="input-base" required>
+<label for="precioBase">💰 Precio Base (COP)</label>
+<input 
+  type="number" 
+  id="precioBase" 
+  name="precio" 
+  placeholder="Ej: 100000" 
+  class="input-base" 
+  required
+  onkeydown="return event.key !== 'e' && event.key !== 'E' && event.key !== '+' && event.key !== '-'"
+/>
+
+
 
   <label for="porcentaje">📊 Porcentaje de comisión</label>
   <select id="porcentaje" name="porcentaje" class="input-base" required>
@@ -207,20 +225,43 @@
 <section class="seccion-formulario">
   <h2 class="titulo-seccion"><span class="numero-paso">6</span> Información de Contacto</h2>
 
-  <label for="agencia">🏢 Nombre de Agencia</label>
-  <input type="text" id="agencia" name="agencia" placeholder="Ej: Agencia Caribe Tours" class="input-base" required>
+<label for="agencia">🏢 Nombre de Agencia o Representante</label>
+<input type="text" id="agencia" name="agencia" placeholder="Ej: Agencia Caribe Tours o Juan Pérez" class="input-base" required>
+<p class="explicacion-campo">Puedes escribir el nombre de la agencia o, si eres independiente, tu nombre como representante.</p>
 
+
+  <!-- Tipo y número de identificación -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
     <div>
-      <label for="telefonoCompleto">🌎 Código Internacional + WhatsApp</label>
-      <input type="number" id="telefonoCompleto" class="input-base" placeholder="3001234567" required>
+      <label for="tipoIdentificacion">🪪 Tipo de Identificación</label>
+      <select id="tipoIdentificacion" name="tipoIdentificacion" class="input-base" required>
+        <option value="">Selecciona una opción</option>
+        <option value="CC">Cédula de Ciudadanía (CC)</option>
+        <option value="CE">Cédula de Extranjería (CE)</option>
+        <option value="PAS">Pasaporte</option>
+        <option value="NIT">NIT</option>
+      </select>
     </div>
     <div>
-      <label for="numeroConfirmacion">🌎 Confirma código internacional + número</label>
-      <input type="number" id="numeroConfirmacion" class="input-base" placeholder="3001234567" required>
+      <label for="numeroIdentificacion">🔢 Número de Identificación</label>
+      <input type="text" id="numeroIdentificacion" name="numeroIdentificacion" placeholder="Ej: 1234567890" class="input-base" required>
     </div>
   </div>
+
+  <!-- Teléfonos -->
+<div>
+  <label for="telefonoCompleto">🌎 Código Internacional + WhatsApp</label>
+  <input type="tel" id="telefonoCompleto" class="input-base" placeholder="Numero de telefono" required>
+  <small id="errorTelefono" class="text-red-500 text-sm hidden"></small>
+</div>
+<div>
+  <label for="numeroConfirmacion">🌎 Confirma WhatsApp</label>
+  <input type="tel" id="numeroConfirmacion" class="input-base" placeholder="Numero de telefono" required>
+  <small id="errorConfirmacion" class="text-red-500 text-sm hidden"></small>
+</div>
+
 </section>
+
 
 <!-- Botón de Enviar -->
 <button type="submit" id="botonEnviar" class="btn-professional bg-orange-500 text-white font-bold py-3 px-6 rounded-full hover:bg-orange-600 transition w-full">
@@ -247,6 +288,13 @@
     <!-- Título -->
     <h2 class="text-2xl font-bold text-green-600">🎉 ¡Registro exitoso!</h2>
     <p class="mt-2 text-gray-700">Tu aventura ha sido registrada correctamente en <b>Jexpedition</b>.</p>
+
+
+        <!-- Contenedor para imágenes -->
+    <div class="mt-6">
+      <p class="text-sm text-gray-600 font-bold mb-2">📸 Imágenes cargadas:</p>
+      <div id="resumenImagenes" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+    </div>
     
     <!-- Info adicional -->
     <div class="mt-4 bg-gray-50 rounded-lg p-4 text-left">
@@ -268,6 +316,8 @@
         <li><b>Teléfono:</b> <span id="resumenTelefono">---</span></li>
       </ul>
     </div>
+
+    
 
     <!-- Mensaje motivacional -->
     <p class="mt-4 text-gray-600">Nuestro equipo revisará tu registro y pronto estará disponible para los usuarios ✨</p>

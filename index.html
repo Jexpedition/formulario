@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jexpedition - Registro de Aventuras</title>
+  <link rel="icon" type="image/x-icon" href="logo/logoinicio.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/css/intlTelInput.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
+  <style>
+    /* Centrar contenido en el body */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh; /* altura total */
+      background-color: #fff7ed; /* naranja claro */
+      padding: 10px;
+    }
+
+    .header-gradient {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #dc2626 100%);
+      color: white;
+      padding: 40px 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .header-gradient h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-top: 10px;
+    }
+    .header-gradient p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    .header-gradient .tagline {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .numero-paso {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #f97316;
+      color: white;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .titulo-seccion {
+      display: flex;
+      align-items: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+    .seccion-formulario {
+      background-color: #f9fafb;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    .contenedor-formulario {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      margin-bottom: 250px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor-formulario">
+    
+    <!-- HEADER -->
+    <header class="header-gradient mb-6">
+      <p class="tagline">🌟 Registro de Aventuras</p>
+      <p>Comparte tu experiencia única con el mundo</p>
+      <h1>Jexpedition</h1>
+      <p class="italic">Tu aventura comienza aquí</p>
+    </header>
+
+    <form id="aventuraForm" class="space-y-8">
+
+<section class="seccion-formulario">
+  <h2 class="titulo-seccion"><span class="numero-paso">1</span> Ciudad y Tipo de Aventura</h2>
+
+  <label for="ciudad">📍 Ciudad</label>
+  <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Cartagena" class="input-base" required>
+
+  <label for="tipo">🎭 Tipo de experiencia</label>
+  <select id="tipo" name="tipo" class="input-base" required>
+    <option value="">Selecciona una opción</option>
+    <option value="Tour">Tour</option>
+    <option value="Pasadía">Pasadía</option>
+    <option value="Viaje">Viaje</option>
+    <option value="Vida nocturna">Vida nocturna</option>
+  </select>
+</section>
+
+<section class="seccion-formulario">
+  <h2 class="titulo-seccion"><span class="numero-paso">2</span> Nombre de la Aventura</h2>
+
+  <label for="nombreAventura">🏖 Nombre en Español</label>
+  <input type="text" id="nombreAventura" name="nombreAventura" placeholder="Ej: Tour Islas del Rosario" class="input-base" required>
+
+  <label for="nombreAventuraIngles">🌐 Nombre en Inglés</label>
+  <input type="text" id="nombreAventuraIngles" name="nombreAventuraIngles" placeholder="Ej: Rosario Islands Tour" class="input-base" required>
+</section>
+
+<!-- Sección 3: Imágenes de la Aventura -->
+<section class="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+  <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+    <span class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+    Imágenes de la Aventura
+  </h2>
+
+  <!-- Área de subida -->
+  <div class="file-upload-area rounded-2xl p-10 text-center cursor-pointer border-2 border-dashed border-orange-300 hover:border-orange-500 transition"
+       >
+    
+    <div class="text-gray-500">
+      <svg class="mx-auto h-16 w-16 mb-6 text-orange-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="text-xl font-bold text-gray-700 mb-2">Haz clic para subir imágenes</p>
+      <p class="text-lg text-gray-500 mb-2">o arrastra y suelta aquí</p>
+      <p class="text-sm text-gray-400">PNG, JPG, GIF hasta 10MB cada una</p>
+    </div>
+    
+    <input type="file" id="imageInput" name="imagenes" accept="image/*" multiple required class="hidden">
+  </div>
+
+  <!-- Contenedor de vista previa (vacío por ahora) -->
+  <div id="imagePreview" class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+</section>
+
+
+<section class="seccion-formulario seccion-precios">
+  <h2 class="titulo-seccion"><span class="numero-paso">4</span> Configuración de Precios</h2>
+
+  <label for="precioBase">💰 Precio Base (COP)</label>
+  <input type="number" id="precioBase" name="precio" placeholder="Ej: 100000" class="input-base" required>
+
+  <label for="porcentaje">📊 Porcentaje de comisión</label>
+  <select id="porcentaje" name="porcentaje" class="input-base" required>
+    <option value="">Selecciona un porcentaje</option>
+    <option value="40">40%</option>
+    <option value="45">45%</option>
+    <option value="50">50%</option>
+  </select>
+
+<label for="precioVenta">💵 Precio de Venta</label>
+<input type="text" id="precioVenta" class="input-readonly" readonly placeholder="(Automático)">
+<p class="explicacion-campo">Este es el precio que se mostrará al público..</p>
+
+<label for="gananciaJexpedition">🏢 Ganancia Jexpedition</label>
+<input type="text" id="gananciaJexpedition" class="input-readonly" readonly placeholder="(Automático)">
+<p class="explicacion-campo">Este valor representa la comisión que gana Jexpedition por cada venta realizada.</p>
+
+  
+
+  <p id="explicacion" class="explicacion"></p>
+</section>
+
+
+<section class="seccion-formulario">
+  <h2 class="titulo-seccion"><span class="numero-paso">5</span> Descripción de la Aventura</h2>
+
+  <label for="descripcion">📝 Descripción general</label>
+  <textarea id="descripcion" name="descripcion" placeholder="Ej: Un día de aventura con snorkel, playas y almuerzo" class="input-base" rows="4" required></textarea>
+  <p class="explicacion-campo">Escribe una descripción breve pero atractiva de la experiencia completa. Esta es la primera impresión que verán los usuarios.</p>
+
+  <label for="incluye">✅ ¿Qué incluye?</label>
+  <textarea id="incluye" name="incluye" placeholder="Ej: Transporte, guía, almuerzo" class="input-base" rows="3" required></textarea>
+  <p class="explicacion-campo">Detalla claramente lo que está incluido en el precio. Por ejemplo: transporte, alimentación, seguros, entradas, etc.</p>
+
+  <label for="destacados">⭐ Destacados</label>
+  <textarea id="destacados" name="destacados" placeholder="Ej: Playas cristalinas, arrecifes de coral" class="input-base" rows="3" required></textarea>
+  <p class="explicacion-campo">Resalta los puntos fuertes o únicos de la experiencia que la hacen especial o diferente.</p>
+
+  <label for="restringidos">⛔ Restricciones</label>
+  <textarea id="restringidos" name="restringidos" placeholder="Ej: No se permiten bebidas alcohólicas" class="input-base" rows="3"></textarea>
+  <p class="explicacion-campo">Menciona cualquier limitación importante: edad mínima, condiciones físicas, elementos prohibidos, etc.</p>
+</section>
+
+
+
+<!-- Sección 6: Información de Contacto -->
+<section class="seccion-formulario">
+  <h2 class="titulo-seccion"><span class="numero-paso">6</span> Información de Contacto</h2>
+
+  <label for="agencia">🏢 Nombre de Agencia</label>
+  <input type="text" id="agencia" name="agencia" placeholder="Ej: Agencia Caribe Tours" class="input-base" required>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <div>
+      <label for="telefonoCompleto">🌎 Código Internacional + WhatsApp</label>
+      <input type="tel" id="telefonoCompleto" class="input-base" placeholder="3001234567" required>
+    </div>
+    <div>
+      <label for="numeroConfirmacion">🌎 Confirma código internacional + número</label>
+      <input type="tel" id="numeroConfirmacion" class="input-base" placeholder="3001234567" required>
+    </div>
+  </div>
+</section>
+
+<!-- Botón de Enviar -->
+<button type="submit" id="botonEnviar" class="btn-professional bg-orange-500 text-white font-bold py-3 px-6 rounded-full hover:bg-orange-600 transition w-full">
+  Enviar Registro
+</button>
+
+</form>
+
+
+
+<!-- Modal de éxito -->
+<div id="modalExito" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-2xl text-center animate-fade-in overflow-y-auto max-h-[90vh]">
+    
+    <!-- Ícono -->
+    <div class="flex justify-center mb-4">
+      <div class="bg-green-100 p-4 rounded-full">
+        <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Título -->
+    <h2 class="text-2xl font-bold text-green-600">🎉 ¡Registro exitoso!</h2>
+    <p class="mt-2 text-gray-700">Tu aventura ha sido registrada correctamente en <b>Jexpedition</b>.</p>
+    
+    <!-- Info adicional -->
+    <div class="mt-4 bg-gray-50 rounded-lg p-4 text-left">
+      <p class="text-sm text-gray-600"><b>Resumen de tu registro:</b></p>
+      <ul class="mt-2 text-sm text-gray-700 list-disc list-inside space-y-1">
+        <li><b>Ciudad:</b> <span id="resumenCiudad">---</span></li>
+        <li><b>Tipo:</b> <span id="resumenTipo">---</span></li>
+        <li><b>Nombre en Español:</b> <span id="resumenNombre">---</span></li>
+        <li><b>Nombre en Inglés:</b> <span id="resumenNombreIngles">---</span></li>
+        <li><b>Precio base:</b> <span id="resumenPrecio">---</span></li>
+        <li><b>Comisión:</b> <span id="resumenComision">---</span></li>
+        <li><b>Precio de venta:</b> <span id="resumenPrecioVenta">---</span></li>
+        <li><b>Ganancia Jexpedition:</b> <span id="resumenGanancia">---</span></li>
+        <li><b>Descripción:</b> <span id="resumenDescripcion">---</span></li>
+        <li><b>Incluye:</b> <span id="resumenIncluye">---</span></li>
+        <li><b>Destacados:</b> <span id="resumenDestacados">---</span></li>
+        <li><b>Restricciones:</b> <span id="resumenRestricciones">---</span></li>
+        <li><b>Agencia:</b> <span id="resumenAgencia">---</span></li>
+        <li><b>Teléfono:</b> <span id="resumenTelefono">---</span></li>
+      </ul>
+    </div>
+
+    <!-- Mensaje motivacional -->
+    <p class="mt-4 text-gray-600">Nuestro equipo revisará tu registro y pronto estará disponible para los usuarios ✨</p>
+
+    <!-- Botones de acción -->
+<div class="flex flex-col items-center gap-3 mt-6">
+    </button>
+  <button id="nuevaAventuraBtn"
+    class="w-full px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
+    Registrar otra aventura
+  </button>
+  <button id="cerrarModalBtn"
+    class="w-full px-5 py-2  text-gray-400 rounded-lg hover:bg-green-600 transition">
+    Cerrar
+
+</div>
+
+
+
+
+  <script src="app.js"></script>
+</body>
+</html>
